@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../models/timetable_model.dart';
 
@@ -13,8 +12,14 @@ class TimeTableProvider extends ChangeNotifier {
     return _time;
   }
 
-  Future getTimeTable(
-      String college, String branch, String std, String div) async {
+  Future getTimeTable() async {
+
+    // TODO : Fetch from local DB
+    String college = 'sitrc';
+    String branch = 'comp';
+    String std = 'se';
+    String div= 'b';
+
     Map<String, String> data = {
       'college': college,
       'branch': branch,
@@ -33,18 +38,13 @@ class TimeTableProvider extends ChangeNotifier {
       Time timetable = Time.fromJson(json.decode(response.body));
       _time = timetable;
       notifyListeners();
-      return timetable;
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<List<Day>> getTodayTimeTable() async {
+  List<Day> getTodayTimeTable() {
     DateTime date = DateTime.now();
-    // var day = DateFormat('EEEE').format(date);
-    // date.weekday
-    await getTimeTable('sitrc', 'comp', 'se', 'b');
-
     Time time = _time;
 
     switch (date.weekday) {
@@ -84,6 +84,7 @@ class TimeTableProvider extends ChangeNotifier {
         }
       case 7:
         {
+          // TODO : implement sunday with raw values in Server or TimeTable Model
           print('Holiday');
         }
         break;
