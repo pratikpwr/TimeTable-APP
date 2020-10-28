@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:timetable/constants.dart';
 import 'package:timetable/providers/timetable_provider.dart';
-import 'package:timetable/views/screens/weekday_list_screen.dart';
-import 'package:timetable/views/screens/today_tt_screen.dart';
-import 'package:timetable/views/tab/tab_screen.dart';
+import 'package:timetable/services/local_db.dart';
+import 'package:timetable/views/bottomNavBar/bottom_nav_bar.dart';
+import 'package:timetable/views/screens/user_data_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,13 +19,49 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primaryColor: primary,
-            scaffoldBackgroundColor: background
+              primaryColor: primary,
+              accentColor: primary,
+              scaffoldBackgroundColor: background),
+          home: Control() //UserDataScreen() //
           ),
-          home: MainScreen()
-      ),
     );
-    
   }
 }
 
+class Control extends StatefulWidget {
+  @override
+  _ControlState createState() => _ControlState();
+}
+
+class _ControlState extends State<Control> {
+  String div;
+  bool _isLoading = false;
+
+  void getData() async {
+    _isLoading = true;
+    String d = await LocaleDB.getUserDiv();
+    setState(() {
+      div = d;
+    });
+    _isLoading = false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : div == null
+            ? UserDataScreen()
+            : BottomNavBar();
+  }
+}

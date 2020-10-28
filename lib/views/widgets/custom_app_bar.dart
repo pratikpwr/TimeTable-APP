@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          isBackButton ? InkWell(
+          isBackButton ?? false ? InkWell(
             onTap: (){
               Navigator.pop(context);
             },
@@ -38,7 +38,7 @@ class CustomAppBar extends StatelessWidget {
           ),
           Text(title.toUpperCase(),
               style: GoogleFonts.poppins(
-                  color: textColor, fontWeight: FontWeight.bold, fontSize: 30)),
+                  color: textColor, fontWeight: FontWeight.bold, fontSize: title.length > 9 ? 24: 30)),
           SizedBox(
             width: 50,
           )

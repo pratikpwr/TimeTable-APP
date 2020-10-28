@@ -8,7 +8,7 @@ class TTList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Day> period = snapshot.data;
+    List<Period> period = snapshot.data;
     return ListView.builder(
       itemCount: period.length,
       itemBuilder: (context, index){

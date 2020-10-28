@@ -10,7 +10,7 @@ class PeriodTile extends StatelessWidget {
     @required this.day,
   }) : super(key: key);
 
-  final Day day;
+  final Period day;
 
   @override
   Widget build(BuildContext context) {

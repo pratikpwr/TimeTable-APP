@@ -1,22 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'package:timetable/constants.dart';
 import 'package:timetable/providers/timetable_provider.dart';
-import 'package:timetable/views/screens/weekday_list_screen.dart';
-import 'package:timetable/views/tab/assign_tab.dart';
-import 'package:timetable/views/tab/notifications_tab.dart';
-import 'package:timetable/views/tab/profile_tab.dart';
-import 'package:timetable/views/tab/timetable_tab.dart';
+import 'package:timetable/views/bottomNavBar/assign_tab.dart';
+import 'package:timetable/views/bottomNavBar/notifications_tab.dart';
+import 'package:timetable/views/bottomNavBar/profile_tab.dart';
+import 'package:timetable/views/bottomNavBar/timetable_tab.dart';
 
-class MainScreen extends StatefulWidget {
+class BottomNavBar extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _BottomNavBarState extends State<BottomNavBar> {
   bool _isInit = true;
 
   @override

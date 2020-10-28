@@ -50,20 +50,20 @@ class Timetable {
     this.saturday,
   });
 
-  final List<Day> monday;
-  final List<Day> tuesday;
-  final List<Day> wednesday;
-  final List<Day> thursday;
-  final List<Day> friday;
-  final List<Day> saturday;
+  final List<Period> monday;
+  final List<Period> tuesday;
+  final List<Period> wednesday;
+  final List<Period> thursday;
+  final List<Period> friday;
+  final List<Period> saturday;
 
   factory Timetable.fromJson(Map<String, dynamic> json) => Timetable(
-    monday: List<Day>.from(json["Monday"].map((x) => Day.fromJson(x))),
-    tuesday: List<Day>.from(json["Tuesday"].map((x) => Day.fromJson(x))),
-    wednesday: List<Day>.from(json["Wednesday"].map((x) => Day.fromJson(x))),
-    thursday: List<Day>.from(json["Thursday"].map((x) => Day.fromJson(x))),
-    friday: List<Day>.from(json["Friday"].map((x) => Day.fromJson(x))),
-    saturday: List<Day>.from(json["Saturday"].map((x) => Day.fromJson(x))),
+    monday: List<Period>.from(json["Monday"].map((x) => Period.fromJson(x))),
+    tuesday: List<Period>.from(json["Tuesday"].map((x) => Period.fromJson(x))),
+    wednesday: List<Period>.from(json["Wednesday"].map((x) => Period.fromJson(x))),
+    thursday: List<Period>.from(json["Thursday"].map((x) => Period.fromJson(x))),
+    friday: List<Period>.from(json["Friday"].map((x) => Period.fromJson(x))),
+    saturday: List<Period>.from(json["Saturday"].map((x) => Period.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -76,8 +76,8 @@ class Timetable {
   };
 }
 
-class Day {
-  Day({
+class Period {
+  Period({
     this.course,
     this.teacher,
     this.timeFrom,
@@ -89,7 +89,7 @@ class Day {
   final String timeFrom;
   final String timeTo;
 
-  factory Day.fromJson(Map<String, dynamic> json) => Day(
+  factory Period.fromJson(Map<String, dynamic> json) => Period(
     course: json["course"] ?? "",
     teacher: json["teacher"] ?? '',
     timeFrom: json["timeFrom"] ?? "",

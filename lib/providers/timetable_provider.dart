@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:cron/cron.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:timetable/services/local_db.dart';
 
 import '../models/timetable_model.dart';
 
@@ -13,12 +16,10 @@ class TimeTableProvider extends ChangeNotifier {
   }
 
   Future getTimeTable() async {
-
-    // TODO : Fetch from local DB
-    String college = 'sitrc';
-    String branch = 'comp';
-    String std = 'se';
-    String div= 'b';
+    String college = await LocaleDB.getUserCollege();
+    String branch = await LocaleDB.getUserBranch();
+    String std = await LocaleDB.getUserStd();
+    String div = await LocaleDB.getUserDiv();
 
     Map<String, String> data = {
       'college': college,
@@ -39,11 +40,43 @@ class TimeTableProvider extends ChangeNotifier {
       _time = timetable;
       notifyListeners();
     } catch (error) {
+      print(error.toString());
       throw (error);
     }
   }
 
-  List<Day> getTodayTimeTable() {
+  void getCurrentPeriod() {
+    // to get current period
+    DateTime _date = DateTime.now();
+    String _curHour = DateFormat('hh').format(_date);
+    String _curMinute = DateFormat('mm').format(_date);
+
+    DateFormat format = DateFormat('hh:mm');
+
+    String _curTime =
+        "${DateFormat('hh').format(_date)}:${DateFormat('mm').format(_date)}";
+    List<Period> _todayTT = getTodayTimeTable();
+
+    int i;
+    for (i = 0; i < _todayTT.length; i++) {
+      print(_curHour);
+      print(_todayTT[i].timeFrom);
+      if (_curTime == _todayTT[i].timeFrom) {
+        // print('time matched');
+      }
+      // for (j = 0; j < _todayTT[i].timeFrom)
+    }
+
+    var cron = new Cron();
+    cron.schedule(new Schedule.parse('49 22 * * *'), () async {
+      print('10:48');
+    });
+    // provide this periodNo based on current time it will return period
+    var currentPeriod = getTodayTimeTable()[1];
+    print(currentPeriod.course);
+  }
+
+  List<Period> getTodayTimeTable() {
     DateTime date = DateTime.now();
     Time time = _time;
 

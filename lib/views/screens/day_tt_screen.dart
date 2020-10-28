@@ -8,7 +8,7 @@ import 'package:timetable/views/widgets/period_tile.dart';
 // Specific Day TT Screen
 class DayTTScreen extends StatelessWidget {
   final String title;
-  final List<Day> day;
+  final List<Period> day;
 
   DayTTScreen(this.title, this.day);
 

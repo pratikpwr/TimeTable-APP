@@ -22,19 +22,22 @@ class _WeekDayListScreenState extends State<WeekDayListScreen> {
     final time = Provider.of<TimeTableProvider>(context).myTime;
     return Scaffold(
         body: SafeArea(
-          child: Column(children: [
-            CustomAppBar(title: 'WeekDays', isBackButton: true),
-             Column(
-              children: [
-                DayButton('Monday', time.timetable.monday),
-                DayButton('Tuesday', time.timetable.tuesday),
-                DayButton('Wednesday', time.timetable.wednesday),
-                DayButton('Thursday', time.timetable.thursday),
-                DayButton('Friday', time.timetable.friday),
-                DayButton('Saturday', time.timetable.saturday),
-              ],
-            )
-          ]),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(children: [
+              CustomAppBar(title: 'WeekDays', isBackButton: true),
+               Column(
+                children: [
+                  DayButton('Monday', time.timetable.monday),
+                  DayButton('Tuesday', time.timetable.tuesday),
+                  DayButton('Wednesday', time.timetable.wednesday),
+                  DayButton('Thursday', time.timetable.thursday),
+                  DayButton('Friday', time.timetable.friday),
+                  DayButton('Saturday', time.timetable.saturday),
+                ],
+              )
+            ]),
+          ),
         ));
   }
 }
