@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:timetable/constants.dart';
-import 'package:timetable/providers/timetable_provider.dart';
-import 'package:timetable/services/local_db.dart';
-import 'package:timetable/views/bottomNavBar/bottom_nav_bar.dart';
-import 'package:timetable/views/screens/user_data_screen.dart';
+import './constants.dart';
+import './providers/timetable_provider.dart';
+import './services/local_db.dart';
+import './views/bottomNavBar/bottom_nav_bar.dart';
+import './views/screens/user_data_screen.dart';
 
 void main() {
   runApp(MyApp());

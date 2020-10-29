@@ -6,10 +6,9 @@ class NotificationsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('NOTIFICATIONS', style: GoogleFonts.poppins(
-          color: textColor,
-          fontWeight: FontWeight.w500,
-          fontSize: 32)),
+      child: Text('NOTIFICATIONS',
+          style: GoogleFonts.poppins(
+              color: textColor, fontWeight: FontWeight.w500, fontSize: 32)),
     );
   }
 }

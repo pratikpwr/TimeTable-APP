@@ -20,7 +20,10 @@ class DayTTScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              CustomAppBar(title: title , isBackButton: true,),
+              CustomAppBar(
+                title: title,
+                isBackButton: true,
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: day.length,
@@ -36,4 +39,3 @@ class DayTTScreen extends StatelessWidget {
     );
   }
 }
-

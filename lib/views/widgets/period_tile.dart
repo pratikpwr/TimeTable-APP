@@ -11,7 +11,7 @@ class PeriodTile extends StatelessWidget {
 
   final Period day;
 
-  NumberFormat formatter = new NumberFormat("00");
+  final NumberFormat formatter = new NumberFormat("00");
 
   @override
   Widget build(BuildContext context) {

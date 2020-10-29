@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
 import 'package:timetable/providers/timetable_provider.dart';
-import 'package:timetable/views/screens/sf_cal.dart';
 import 'package:timetable/views/screens/today_tt_screen.dart';
 import 'package:timetable/views/screens/weekday_list_screen.dart';
 import 'package:timetable/views/widgets/custom_app_bar.dart';
@@ -25,7 +20,6 @@ class _TimeTableTabState extends State<TimeTableTab> {
     Period curPeriod =
         Provider.of<TimeTableProvider>(context).getCurrentPeriod();
     Period nextPeriod = Provider.of<TimeTableProvider>(context).getNextPeriod();
-    // print(curPeriod.toJson().toString());
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(

@@ -53,6 +53,10 @@ class TimeTableProvider extends ChangeNotifier {
 
       var response = await Dio().post(url, data: formData);
       print(response.data.toString());
+
+      Time tt = Time.fromJson(response.data);
+      _time = tt;
+      notifyListeners();
     } on DioError catch (error) {
       if (error.response != null) {
         print(error.response.data.toString());
@@ -157,7 +161,9 @@ class TimeTableProvider extends ChangeNotifier {
 
       if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
         int item = i + 1;
-        return _todayTT.length > item ?_todayTT[item] ?? testPeriod : testPeriod;
+        return _todayTT.length > item
+            ? _todayTT[item] ?? testPeriod
+            : testPeriod;
       }
     }
     return testPeriod;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
 import 'package:timetable/views/screens/day_tt_screen.dart';

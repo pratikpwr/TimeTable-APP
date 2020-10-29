@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:timetable/constants.dart';
 import 'package:timetable/services/local_db.dart';
 import 'package:timetable/views/bottomNavBar/bottom_nav_bar.dart';
+import 'package:timetable/views/widgets/custom_app_bar.dart';
 import 'package:timetable/views/widgets/custom_button.dart';
 
 class UserDataScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //CustomAppBar(title: 'Provide Data', isBackButton: false),
+              CustomAppBar(title: 'Provide Data', isBackButton: false),
               Padding(
                 padding: const EdgeInsets.only(left: 32, top: 24),
                 child: SvgPicture.asset(
@@ -197,12 +198,14 @@ class _UserDataScreenState extends State<UserDataScreen> {
                 ),
               ),
               Center(
-                child: CustomButton(title: 'Done', onTap: () {
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return BottomNavBar();
-                  }));
-                }),
+                child: CustomButton(
+                    title: 'Done',
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                        return BottomNavBar();
+                      }));
+                    }),
               )
             ],
           ),

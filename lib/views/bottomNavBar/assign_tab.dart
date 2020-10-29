@@ -6,10 +6,9 @@ class AssignTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('ASSIGNMENTS', style: GoogleFonts.poppins(
-          color: textColor,
-          fontWeight: FontWeight.w500,
-          fontSize: 32)),
+      child: Text('ASSIGNMENTS',
+          style: GoogleFonts.poppins(
+              color: textColor, fontWeight: FontWeight.w500, fontSize: 32)),
     );
   }
 }

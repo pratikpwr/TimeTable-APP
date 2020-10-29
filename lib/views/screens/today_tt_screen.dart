@@ -20,7 +20,10 @@ class TodayTTScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              CustomAppBar(title: DateFormat('EEEE').format(date), isBackButton: true,),
+              CustomAppBar(
+                title: DateFormat('EEEE').format(date),
+                isBackButton: true,
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: todayTT.length,

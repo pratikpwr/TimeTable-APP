@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,9 +28,28 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
   String _divName;
   List _listOfDiv = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
+  final GlobalKey<ScaffoldState> _scaffoldState = new GlobalKey<ScaffoldState>();
+
+  File _file;
+  String _fileName = 'Select CSV file';
+
+  Future getFile() async {
+    File file = await FilePicker.getFile();
+
+    setState(() {
+      _file = file;
+    });
+  }
+
+  void _showSnackBarMsg(String msg){
+    _scaffoldState.currentState
+        .showSnackBar( new SnackBar(content: new Text(msg),));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -180,12 +202,20 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                       }),
                 ),
               ),
-             CustomButton(title: 'Upload', onTap: () {
-               //TODO : implement file upload
-               Provider.of<TimeTableProvider>(context, listen: false).uploadTT(
-                   _collegeName, _branchName, _stdName, _divName, 'filePath');
-               Navigator.pop(context);
-             })
+              CustomButton(
+                  title: _fileName,
+                  onTap: () {
+                    getFile();
+                  }),
+              CustomButton(
+                  title: 'Upload',
+                  onTap: () async {
+                    await Provider.of<TimeTableProvider>(context, listen: false)
+                        .uploadTT(_collegeName, _branchName, _stdName, _divName,
+                        _file.path);
+                      _showSnackBarMsg('Uploaded!');
+                      Navigator.pop(context);
+                  })
             ],
           ),
         ),
