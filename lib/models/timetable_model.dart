@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 Time timeFromJson(String str) => Time.fromJson(json.decode(str));
 
 String timeToJson(Time data) => json.encode(data.toJson());
@@ -80,26 +82,36 @@ class Period {
   Period({
     this.course,
     this.teacher,
-    this.timeFrom,
-    this.timeTo,
+    this.timeFromHour,
+    this.timeFromMinute,
+    this.timeToHour,
+    this.timeToMinute,
   });
 
   final String course;
   final String teacher;
-  final String timeFrom;
-  final String timeTo;
+  final int timeFromHour;
+  final int timeFromMinute;
+  final int timeToHour;
+  final int timeToMinute;
+
+
 
   factory Period.fromJson(Map<String, dynamic> json) => Period(
     course: json["course"] ?? "",
     teacher: json["teacher"] ?? '',
-    timeFrom: json["timeFrom"] ?? "",
-    timeTo: json["timeTo"] ?? "",
+    timeFromHour: int.parse(json[("timeFromHour")]),
+    timeFromMinute: int.parse(json["timeFromMinute"]),
+    timeToHour: int.parse(json["timeToHour"]),
+    timeToMinute: int.parse(json["timeToMinute"]),
   );
 
   Map<String, dynamic> toJson() => {
     "course": course,
     "teacher": teacher,
-    "timeFrom": timeFrom,
-    "timeTo": timeTo,
+    "timeFromHour": timeFromHour,
+    "timeFromMinute": timeFromMinute,
+    "timeToHour": timeToHour,
+    "timeToMinute": timeToMinute,
   };
 }

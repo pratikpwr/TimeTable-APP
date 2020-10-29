@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
 
 class PeriodTile extends StatelessWidget {
-  const PeriodTile({
-    Key key,
+  PeriodTile({
     @required this.day,
-  }) : super(key: key);
+  });
 
   final Period day;
+
+  NumberFormat formatter = new NumberFormat("00");
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,11 @@ class PeriodTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                 day.timeFrom,
+                '${formatter.format(day.timeFromHour)} : ${formatter.format(day.timeFromMinute)}',
                 style: GoogleFonts.mukta(color: textColor, fontSize: 18),
               ),
-              Text( day.timeTo,
+              Text(
+                  '${formatter.format(day.timeToHour)} : ${formatter.format(day.timeToMinute)}',
                   style: GoogleFonts.mukta(color: textColor, fontSize: 18)),
             ],
           ),
@@ -53,7 +55,6 @@ class PeriodTile extends StatelessWidget {
                   ],
                 )
               : Text(day.course,
-
                   style: GoogleFonts.mukta(
                       color: primary,
                       fontWeight: FontWeight.bold,

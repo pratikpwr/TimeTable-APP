@@ -1,13 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:timetable/constants.dart';
+import 'package:timetable/models/timetable_model.dart';
 import 'package:timetable/providers/timetable_provider.dart';
 import 'package:timetable/views/screens/sf_cal.dart';
 import 'package:timetable/views/screens/today_tt_screen.dart';
 import 'package:timetable/views/screens/weekday_list_screen.dart';
 import 'package:timetable/views/widgets/custom_app_bar.dart';
+import 'package:timetable/views/widgets/custom_button.dart';
+import 'package:timetable/views/widgets/period_card.dart';
 
 class TimeTableTab extends StatefulWidget {
   @override
@@ -15,95 +20,49 @@ class TimeTableTab extends StatefulWidget {
 }
 
 class _TimeTableTabState extends State<TimeTableTab> {
-
   @override
   Widget build(BuildContext context) {
+    Period curPeriod =
+        Provider.of<TimeTableProvider>(context).getCurrentPeriod();
+    Period nextPeriod = Provider.of<TimeTableProvider>(context).getNextPeriod();
+    // print(curPeriod.toJson().toString());
     return Scaffold(
         body: SafeArea(
-      child: Column(children: [
-        CustomAppBar(title: 'TimeTable', isBackButton: false),
-        Column(
-          children: [
-            InkWell(
-              onTap: () {
-                Provider.of<TimeTableProvider>(context, listen: false).getCurrentPeriod();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return WeekDayListScreen();
-                }));
-
-              },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                decoration: BoxDecoration(
-                    color: darkBackground,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(
-                  'All TimeTable',
-                  style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22),
-                ),
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(children: [
+          CustomAppBar(title: 'TimeTable', isBackButton: false),
+          Column(
+            children: [
+              CustomButton(
+                  title: 'All TimeTable',
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return WeekDayListScreen();
+                    }));
+                  }),
+              CustomButton(
+                title: 'Today\'s TimeTable',
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return TodayTTScreen();
+                  }));
+                },
               ),
-            ),
-
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return TodayTTScreen();
-                }));
-              },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                decoration: BoxDecoration(
-                    color: darkBackground,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(
-                  'Today\'s TT',
-                  style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22),
-                ),
+              PeriodCard(
+                period: curPeriod,
+                status: 'ONGOING',
               ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return SFCal();
-                }));
-
-              },
-              child: Container(
-                width: double.infinity,
-
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                decoration: BoxDecoration(
-                    color: darkBackground,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(
-                  'SF TT',
-                  style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22),
-                ),
-              ),
-            ),
-          ],
-        )
-      ]),
+              PeriodCard(
+                period: nextPeriod,
+                status: 'NEXT',
+              )
+            ],
+          )
+        ]),
+      ),
     ));
   }
 }

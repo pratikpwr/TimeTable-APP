@@ -87,7 +87,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Icon(
                 Feather.bell,
               ),
-              label: 'NOTIFICATIONS',
+              label: 'NOTICES',
             ),
             BottomNavigationBarItem(
               icon: Icon(

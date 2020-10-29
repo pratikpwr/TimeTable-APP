@@ -30,7 +30,7 @@ class DayButton extends StatelessWidget {
           child: Text(
             title.toUpperCase(),
             style: GoogleFonts.poppins(
-                color: textColor, fontWeight: FontWeight.w500, fontSize: 24),
+                color: textColor, fontWeight: FontWeight.w500, fontSize: 20),
           ),
         ),
       ),

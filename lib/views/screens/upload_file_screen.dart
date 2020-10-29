@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:timetable/constants.dart';
-import 'package:timetable/services/local_db.dart';
-import 'package:timetable/views/bottomNavBar/bottom_nav_bar.dart';
+import 'package:timetable/providers/timetable_provider.dart';
+import 'package:timetable/views/widgets/custom_app_bar.dart';
 import 'package:timetable/views/widgets/custom_button.dart';
 
-class UserDataScreen extends StatefulWidget {
+class UploadFileScreen extends StatefulWidget {
   @override
-  _UserDataScreenState createState() => _UserDataScreenState();
+  _UploadFileScreenState createState() => _UploadFileScreenState();
 }
 
-class _UserDataScreenState extends State<UserDataScreen> {
+class _UploadFileScreenState extends State<UploadFileScreen> {
   String _collegeName;
   List _listOfColleges = ['sitrc', 'siem', 'sip', 'su'];
 
@@ -30,21 +30,9 @@ class _UserDataScreenState extends State<UserDataScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //CustomAppBar(title: 'Provide Data', isBackButton: false),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, top: 24),
-                child: SvgPicture.asset(
-                  'assets/undraw_forms_78yw.svg',
-                  height: 200,
-                ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
+              CustomAppBar(title: 'Upload TimeTable', isBackButton: true),
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Text(
@@ -84,7 +72,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _collegeName = value;
                         });
-                        LocaleDB.saveUserCollege(value);
                       }),
                 ),
               ),
@@ -120,7 +107,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _branchName = value;
                         });
-                        LocaleDB.saveUserBranch(value);
                       }),
                 ),
               ),
@@ -156,7 +142,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _stdName = value;
                         });
-                        LocaleDB.saveUserStd(value);
                       }),
                 ),
               ),
@@ -192,18 +177,15 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _divName = value;
                         });
-                        LocaleDB.saveUserDiv(value);
                       }),
                 ),
               ),
-              Center(
-                child: CustomButton(title: 'Done', onTap: () {
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return BottomNavBar();
-                  }));
-                }),
-              )
+             CustomButton(title: 'Upload', onTap: () {
+               //TODO : implement file upload
+               Provider.of<TimeTableProvider>(context, listen: false).uploadTT(
+                   _collegeName, _branchName, _stdName, _divName, 'filePath');
+               Navigator.pop(context);
+             })
             ],
           ),
         ),

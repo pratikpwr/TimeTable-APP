@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:cron/cron.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:timetable/services/local_db.dart';
 
+import '../services/local_db.dart';
 import '../models/timetable_model.dart';
 
 class TimeTableProvider extends ChangeNotifier {
@@ -15,65 +12,55 @@ class TimeTableProvider extends ChangeNotifier {
     return _time;
   }
 
+  String baseUrl = 'https://timetable-flask-app.herokuapp.com';
+
   Future getTimeTable() async {
     String college = await LocaleDB.getUserCollege();
     String branch = await LocaleDB.getUserBranch();
     String std = await LocaleDB.getUserStd();
     String div = await LocaleDB.getUserDiv();
 
-    Map<String, String> data = {
-      'college': college,
-      'branch': branch,
-      'std': std,
-      'div': div
-    };
-    String body = json.encode(data);
-    var header = {"Content-Type": "application/json"};
+    String url = '$baseUrl/timetable/$college/$branch/$std/$div';
 
     try {
-      final response = await http.post(
-          'https://timetable-flask-app.herokuapp.com/timetable',
-          headers: header,
-          body: body);
+      final response = await Dio().get(url);
 
-      Time timetable = Time.fromJson(json.decode(response.body));
+      // print(response.data.toString());
+      Time timetable = Time.fromJson(response.data);
       _time = timetable;
       notifyListeners();
-    } catch (error) {
-      print(error.toString());
-      throw (error);
+    } on DioError catch (error) {
+      if (error.response != null) {
+        print(error.response.data.toString());
+      } else {
+        print(error.request);
+        print(error.message);
+      }
     }
   }
 
-  void getCurrentPeriod() {
-    // to get current period
-    DateTime _date = DateTime.now();
-    String _curHour = DateFormat('hh').format(_date);
-    String _curMinute = DateFormat('mm').format(_date);
+  Future uploadTT(String college, String branch, String std, String div,
+      String filePath) async {
+    String url = '$baseUrl/upload';
+    try {
+      FormData formData = FormData.fromMap({
+        'college': college,
+        'branch': branch,
+        'std': std,
+        'div': div,
+        'csv_file': await MultipartFile.fromFile(filePath)
+      });
 
-    DateFormat format = DateFormat('hh:mm');
-
-    String _curTime =
-        "${DateFormat('hh').format(_date)}:${DateFormat('mm').format(_date)}";
-    List<Period> _todayTT = getTodayTimeTable();
-
-    int i;
-    for (i = 0; i < _todayTT.length; i++) {
-      print(_curHour);
-      print(_todayTT[i].timeFrom);
-      if (_curTime == _todayTT[i].timeFrom) {
-        // print('time matched');
+      var response = await Dio().post(url, data: formData);
+      print(response.data.toString());
+    } on DioError catch (error) {
+      if (error.response != null) {
+        print(error.response.data.toString());
+      } else {
+        print(error.request);
+        print(error.message);
       }
-      // for (j = 0; j < _todayTT[i].timeFrom)
     }
-
-    var cron = new Cron();
-    cron.schedule(new Schedule.parse('49 22 * * *'), () async {
-      print('10:48');
-    });
-    // provide this periodNo based on current time it will return period
-    var currentPeriod = getTodayTimeTable()[1];
-    print(currentPeriod.course);
   }
 
   List<Period> getTodayTimeTable() {
@@ -129,5 +116,69 @@ class TimeTableProvider extends ChangeNotifier {
     }
 
     return time.timetable.saturday;
+  }
+
+  Period getCurrentPeriod() {
+    final currentTime = DateTime.now();
+    int _curYear = int.parse(DateFormat('yyyy').format(currentTime));
+    int _curMonth = int.parse(DateFormat('MM').format(currentTime));
+    int _curDate = int.parse(DateFormat('dd').format(currentTime));
+
+    List<Period> _todayTT = getTodayTimeTable();
+
+    for (int i = 0; i < _todayTT.length; i++) {
+      final startTime = DateTime(_curYear, _curMonth, _curDate,
+          hourFix(_todayTT[i].timeFromHour), _todayTT[i].timeFromMinute);
+
+      final endTime = DateTime(_curYear, _curMonth, _curDate,
+          hourFix(_todayTT[i].timeToHour), _todayTT[i].timeToMinute);
+
+      if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+        return _todayTT[i] ?? testPeriod;
+      }
+    }
+    return testPeriod;
+  }
+
+  Period getNextPeriod() {
+    final currentTime = DateTime.now();
+    int _curYear = int.parse(DateFormat('yyyy').format(currentTime));
+    int _curMonth = int.parse(DateFormat('MM').format(currentTime));
+    int _curDate = int.parse(DateFormat('dd').format(currentTime));
+
+    List<Period> _todayTT = getTodayTimeTable();
+
+    for (int i = 0; i < _todayTT.length; i++) {
+      final startTime = DateTime(_curYear, _curMonth, _curDate,
+          hourFix(_todayTT[i].timeFromHour), _todayTT[i].timeFromMinute);
+
+      final endTime = DateTime(_curYear, _curMonth, _curDate,
+          hourFix(_todayTT[i].timeToHour), _todayTT[i].timeToMinute);
+
+      if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+        int item = i + 1;
+        return _todayTT.length > item ?_todayTT[item] ?? testPeriod : testPeriod;
+      }
+    }
+    return testPeriod;
+  }
+
+  //
+  Period testPeriod = Period(
+      course: 'Not Any Lecture',
+      teacher: '',
+      timeFromHour: 0,
+      timeFromMinute: 00,
+      timeToHour: 0,
+      timeToMinute: 00);
+
+  // hour fix 12hr and 24hr problem
+  int hourFix(time) {
+    // if greater than 12 then add +12
+    if (time <= 6) {
+      return time + 12;
+    } else {
+      return time;
+    }
   }
 }
