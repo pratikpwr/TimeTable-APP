@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget {
                     style: GoogleFonts.mukta(
                         color: textColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: title.length > 9 ? 22 : 30)),
+                        fontSize: title.length > 12 ? 22 : 30)),
               ],
             )
           : Center(
@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
                   style: GoogleFonts.mukta(
                       color: textColor,
                       fontWeight: FontWeight.w500,
-                      fontSize: title.length > 9 ? 20 : 28)),
+                      fontSize: title.length > 12 ? 22 : 28)),
             ),
     );
   }

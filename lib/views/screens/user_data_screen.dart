@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'package:timetable/constants.dart';
+import 'package:timetable/providers/timetable_provider.dart';
 import 'package:timetable/services/local_db.dart';
 import 'package:timetable/views/bottomNavBar/bottom_nav_bar.dart';
 import 'package:timetable/views/widgets/custom_app_bar.dart';
@@ -14,6 +17,9 @@ class UserDataScreen extends StatefulWidget {
 }
 
 class _UserDataScreenState extends State<UserDataScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldState =
+      new GlobalKey<ScaffoldState>();
+
   String _collegeName;
   List _listOfColleges = ['sitrc', 'siem', 'sip', 'su'];
 
@@ -26,21 +32,58 @@ class _UserDataScreenState extends State<UserDataScreen> {
   String _divName;
   List _listOfDiv = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
+  String div;
+  bool _isInit = true;
+
+  void getData() async {
+    String d = await LocaleDB.getUserDiv();
+    setState(() {
+      div = d;
+    });
+    if (div == null) {
+      setState(() {
+        _isInit = true;
+      });
+    } else {
+      _isInit = false;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void saveDataToDB() {
+    LocaleDB.saveUserCollege(_collegeName);
+    LocaleDB.saveUserBranch(_branchName);
+    LocaleDB.saveUserStd(_stdName);
+    LocaleDB.saveUserDiv(_divName);
+  }
+
+  void _showSnackBarMsg(String msg) {
+    _scaffoldState.currentState.showSnackBar(new SnackBar(
+      content: new Text(msg),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(title: 'Provide Data', isBackButton: false),
-              Padding(
-                padding: const EdgeInsets.only(left: 32, top: 24),
+              CustomAppBar(
+                  title: 'Provide Data', isBackButton: _isInit ? false : true),
+              Center(
                 child: SvgPicture.asset(
                   'assets/undraw_forms_78yw.svg',
-                  height: 200,
+                  height: 150,
                 ),
               ),
               SizedBox(
@@ -85,7 +128,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _collegeName = value;
                         });
-                        LocaleDB.saveUserCollege(value);
                       }),
                 ),
               ),
@@ -121,7 +163,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _branchName = value;
                         });
-                        LocaleDB.saveUserBranch(value);
                       }),
                 ),
               ),
@@ -157,7 +198,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _stdName = value;
                         });
-                        LocaleDB.saveUserStd(value);
                       }),
                 ),
               ),
@@ -193,7 +233,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         setState(() {
                           _divName = value;
                         });
-                        LocaleDB.saveUserDiv(value);
                       }),
                 ),
               ),
@@ -201,10 +240,19 @@ class _UserDataScreenState extends State<UserDataScreen> {
                 child: CustomButton(
                     title: 'Done',
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                        return BottomNavBar();
-                      }));
+                      if (_isInit) {
+                        saveDataToDB();
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                          return BottomNavBar();
+                        }));
+                      } else {
+                        saveDataToDB();
+                        Provider.of<TimeTableProvider>(context, listen: false)
+                            .getTimeTable();
+                        _showSnackBarMsg('New TimeTable Added!');
+                        Navigator.pop(context);
+                      }
                     }),
               )
             ],
