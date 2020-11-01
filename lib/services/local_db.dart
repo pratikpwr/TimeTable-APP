@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocaleDB {
+class LocalDB {
   static String userCollege = 'college';
   static String userBranch = 'branch';
   static String userStd = 'std';

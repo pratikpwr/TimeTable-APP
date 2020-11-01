@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timetable/providers/notice_provider.dart';
+import 'package:timetable/providers/work_provider.dart';
 
 import './constants.dart';
 import './providers/timetable_provider.dart';
@@ -14,8 +16,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TimeTableProvider>(
-      create: (ctx) => TimeTableProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TimeTableProvider>(
+          create: (ctx) => TimeTableProvider(),
+        ),
+        ChangeNotifierProvider<WorkProvider>(
+          create: (ctx) => WorkProvider(),
+        ),
+        ChangeNotifierProvider<NoticeProvider>(
+          create: (ctx) => NoticeProvider(),
+        )
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -39,7 +51,7 @@ class _ControlState extends State<Control> {
 
   void getData() async {
     _isLoading = true;
-    String d = await LocaleDB.getUserDiv();
+    String d = await LocalDB.getUserDiv();
     setState(() {
       div = d;
     });

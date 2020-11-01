@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
 import 'package:timetable/constants.dart';
 import 'package:timetable/providers/timetable_provider.dart';
 import 'package:timetable/views/widgets/custom_app_bar.dart';
@@ -28,22 +29,25 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
   String _divName;
   List _listOfDiv = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
-  final GlobalKey<ScaffoldState> _scaffoldState = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldState =
+      new GlobalKey<ScaffoldState>();
 
   File _file;
   String _fileName = 'Select CSV file';
 
   Future getFile() async {
     File file = await FilePicker.getFile();
-
+    String filename = basename(file.path);
     setState(() {
       _file = file;
+      _fileName = filename;
     });
   }
 
-  void _showSnackBarMsg(String msg){
-    _scaffoldState.currentState
-        .showSnackBar( new SnackBar(content: new Text(msg),));
+  void _showSnackBarMsg(String msg) {
+    _scaffoldState.currentState.showSnackBar(new SnackBar(
+      content: new Text(msg),
+    ));
   }
 
   @override
@@ -212,9 +216,9 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                   onTap: () async {
                     await Provider.of<TimeTableProvider>(context, listen: false)
                         .uploadTT(_collegeName, _branchName, _stdName, _divName,
-                        _file.path);
-                      _showSnackBarMsg('Uploaded!');
-                      Navigator.pop(context);
+                            _file.path);
+                    _showSnackBarMsg('Uploaded!');
+                    Navigator.pop(context);
                   })
             ],
           ),

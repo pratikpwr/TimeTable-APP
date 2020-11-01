@@ -15,10 +15,10 @@ class TimeTableProvider extends ChangeNotifier {
   String baseUrl = 'https://timetable-flask-app.herokuapp.com';
 
   Future getTimeTable() async {
-    String college = await LocaleDB.getUserCollege();
-    String branch = await LocaleDB.getUserBranch();
-    String std = await LocaleDB.getUserStd();
-    String div = await LocaleDB.getUserDiv();
+    String college = await LocalDB.getUserCollege();
+    String branch = await LocalDB.getUserBranch();
+    String std = await LocalDB.getUserStd();
+    String div = await LocalDB.getUserDiv();
 
     String url = '$baseUrl/timetable/$college/$branch/$std/$div';
 
@@ -41,15 +41,10 @@ class TimeTableProvider extends ChangeNotifier {
 
   Future uploadTT(String college, String branch, String std, String div,
       String filePath) async {
-    String url = '$baseUrl/upload';
+    String url = '$baseUrl/timetable/$college/$branch/$std/$div';
     try {
-      FormData formData = FormData.fromMap({
-        'college': college,
-        'branch': branch,
-        'std': std,
-        'div': div,
-        'csv_file': await MultipartFile.fromFile(filePath)
-      });
+      FormData formData = FormData.fromMap(
+          {'csv_file': await MultipartFile.fromFile(filePath)});
 
       var response = await Dio().post(url, data: formData);
       print(response.data.toString());
@@ -109,7 +104,7 @@ class TimeTableProvider extends ChangeNotifier {
       case 7:
         {
           // TODO : implement sunday with raw values in Server or TimeTable Model
-          print('Holiday');
+          //print('Holiday');
         }
         break;
       default:

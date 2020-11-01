@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:timetable/constants.dart';
+import 'package:timetable/providers/notice_provider.dart';
 import 'package:timetable/providers/timetable_provider.dart';
-import 'package:timetable/views/bottomNavBar/assign_tab.dart';
-import 'package:timetable/views/bottomNavBar/notifications_tab.dart';
-import 'package:timetable/views/bottomNavBar/profile_tab.dart';
-import 'package:timetable/views/bottomNavBar/timetable_tab.dart';
+import 'package:timetable/providers/work_provider.dart';
+import '../bottomNavBar/assign_tab.dart';
+import '../bottomNavBar/notices_tab.dart';
+import '../bottomNavBar/profile_tab.dart';
+import '../bottomNavBar/timetable_tab.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void didChangeDependencies() async {
     if (_isInit) {
       await Provider.of<TimeTableProvider>(context).getTimeTable();
+      await Provider.of<WorkProvider>(context, listen: false).getWorks();
+      await Provider.of<NoticeProvider>(context, listen: false).getNotices();
     }
     _isInit = false;
   }
@@ -109,7 +113,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
-        return [TimeTableTab(), AssignTab(), NotificationsTab(), ProfileTab()]
+        return [TimeTableTab(), AssignTab(), NoticeTab(), ProfileTab()]
             .elementAt(index);
       },
     };

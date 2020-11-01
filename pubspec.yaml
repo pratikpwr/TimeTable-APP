@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^1.1.1
   intl: ^0.16.1
   file_picker: ^1.4.2
+  path: ^1.7.0
   flutter_icons: ^1.1.0
   flutter_svg: ^0.19.1
   shared_preferences: ^0.5.10

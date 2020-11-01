@@ -36,7 +36,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
   bool _isInit = true;
 
   void getData() async {
-    String d = await LocaleDB.getUserDiv();
+    String d = await LocalDB.getUserDiv();
     setState(() {
       div = d;
     });
@@ -56,10 +56,10 @@ class _UserDataScreenState extends State<UserDataScreen> {
   }
 
   void saveDataToDB() {
-    LocaleDB.saveUserCollege(_collegeName);
-    LocaleDB.saveUserBranch(_branchName);
-    LocaleDB.saveUserStd(_stdName);
-    LocaleDB.saveUserDiv(_divName);
+    LocalDB.saveUserCollege(_collegeName);
+    LocalDB.saveUserBranch(_branchName);
+    LocalDB.saveUserStd(_stdName);
+    LocalDB.saveUserDiv(_divName);
   }
 
   void _showSnackBarMsg(String msg) {

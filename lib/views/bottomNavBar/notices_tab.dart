@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:timetable/constants.dart';
-import 'package:timetable/providers/work_provider.dart';
+import 'package:timetable/providers/notice_provider.dart';
 import 'package:timetable/views/widgets/custom_app_bar.dart';
 
-class AssignTab extends StatefulWidget {
+class NoticeTab extends StatefulWidget {
   @override
-  _AssignTabState createState() => _AssignTabState();
+  _NoticeTabState createState() => _NoticeTabState();
 }
 
-class _AssignTabState extends State<AssignTab> {
+class _NoticeTabState extends State<NoticeTab> {
   @override
   Widget build(BuildContext context) {
-    var assigns = Provider.of<WorkProvider>(context).works;
+    var notices = Provider.of<NoticeProvider>(context).notices;
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              CustomAppBar(title: 'Assignments', isBackButton: false),
+              CustomAppBar(title: 'Notices', isBackButton: false),
               ListView.builder(
                 shrinkWrap: true,
                 reverse: true,
                 physics: BouncingScrollPhysics(),
-                itemCount: assigns.assignment.length,
+                itemCount: notices.notices.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
@@ -37,30 +37,18 @@ class _AssignTabState extends State<AssignTab> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              assigns.assignment[index].workTitle,
-                              style: GoogleFonts.mukta(
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            Text(
-                              assigns.assignment[index].subject,
-                              style: GoogleFonts.mukta(
-                                  color: textColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18),
-                            ),
-                          ],
+                        Text(
+                          notices.notices[index].noticeTitle,
+                          style: GoogleFonts.mukta(
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
-                          assigns.assignment[index].workDec,
+                          notices.notices[index].noticeDec,
                           style:
                               GoogleFonts.mukta(color: textColor, fontSize: 16),
                         ),
@@ -71,7 +59,7 @@ class _AssignTabState extends State<AssignTab> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Date : ' + assigns.assignment[index].date,
+                              'Date : ' + notices.notices[index].date,
                               style: GoogleFonts.mukta(
                                   color: textColor, fontSize: 15),
                             ),
