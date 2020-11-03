@@ -7,6 +7,7 @@ import 'package:timetable/constants.dart';
 import 'package:timetable/providers/notice_provider.dart';
 import 'package:timetable/providers/timetable_provider.dart';
 import 'package:timetable/providers/work_provider.dart';
+import 'package:timetable/views/bottomNavBar/home_tab.dart';
 import '../bottomNavBar/assign_tab.dart';
 import '../bottomNavBar/notices_tab.dart';
 import '../bottomNavBar/profile_tab.dart';
@@ -36,6 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>()
   ];
 
@@ -60,6 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   _buildOffstageNavigator(1),
                   _buildOffstageNavigator(2),
                   _buildOffstageNavigator(3),
+                  _buildOffstageNavigator(4),
                 ],
               )
             : Center(
@@ -68,13 +71,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
+          elevation: 0,
           backgroundColor: darkBackground,
           selectedItemColor: primary,
-          unselectedItemColor: textColor,
+          unselectedItemColor: lightSlateGrey,
           //showSelectedLabels: false,
-          selectedLabelStyle: GoogleFonts.mukta(),
+          selectedLabelStyle: GoogleFonts.poppins(),
           showUnselectedLabels: false,
           items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Entypo.home, //entypo, foundation
+              ),
+              label: 'HOME',
+            ),
             BottomNavigationBarItem(
               icon: Icon(
                 FontAwesome.calendar,
@@ -113,7 +123,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
-        return [TimeTableTab(), AssignTab(), NoticeTab(), ProfileTab()]
+        return [HomeTab(), TimeTableTab(), AssignTab(), NoticeTab(), ProfileTab()]
             .elementAt(index);
       },
     };

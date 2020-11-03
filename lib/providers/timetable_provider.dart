@@ -62,11 +62,11 @@ class TimeTableProvider extends ChangeNotifier {
     }
   }
 
-  List<Period> getTodayTimeTable() {
-    DateTime date = DateTime.now();
+  List<Period> getWeekDayTimeTable(int weekday) {
+    //
     Time time = _time;
 
-    switch (date.weekday) {
+    switch (weekday) {
       case 1:
         {
           return time.timetable.monday;
@@ -123,7 +123,8 @@ class TimeTableProvider extends ChangeNotifier {
     int _curMonth = int.parse(DateFormat('MM').format(currentTime));
     int _curDate = int.parse(DateFormat('dd').format(currentTime));
 
-    List<Period> _todayTT = getTodayTimeTable();
+    DateTime date = DateTime.now();
+    List<Period> _todayTT = getWeekDayTimeTable(date.weekday);
 
     for (int i = 0; i < _todayTT.length; i++) {
       final startTime = DateTime(_curYear, _curMonth, _curDate,
@@ -145,7 +146,8 @@ class TimeTableProvider extends ChangeNotifier {
     int _curMonth = int.parse(DateFormat('MM').format(currentTime));
     int _curDate = int.parse(DateFormat('dd').format(currentTime));
 
-    List<Period> _todayTT = getTodayTimeTable();
+    DateTime date = DateTime.now();
+    List<Period> _todayTT = getWeekDayTimeTable(date.weekday);
 
     for (int i = 0; i < _todayTT.length; i++) {
       final startTime = DateTime(_curYear, _curMonth, _curDate,
@@ -166,7 +168,7 @@ class TimeTableProvider extends ChangeNotifier {
 
   //
   Period testPeriod = Period(
-      course: 'Not Any Lecture',
+      course: 'Currently No Lecture',
       teacher: '',
       timeFromHour: 0,
       timeFromMinute: 00,

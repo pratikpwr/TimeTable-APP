@@ -11,8 +11,9 @@ import 'package:timetable/views/widgets/period_tile.dart';
 class TodayTTScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final todayTT = Provider.of<TimeTableProvider>(context).getTodayTimeTable();
     DateTime date = DateTime.now();
+    final todayTT = Provider.of<TimeTableProvider>(context)
+        .getWeekDayTimeTable(date.weekday);
 
     return Scaffold(
       body: SafeArea(

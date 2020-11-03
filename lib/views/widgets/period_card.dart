@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
-
 
 class PeriodCard extends StatelessWidget {
   PeriodCard({
@@ -20,83 +20,62 @@ class PeriodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width - 60,
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+      margin: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: darkBackground,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          status.length < 2
-              ? SizedBox()
-              : Text(
-            '$status :',
-            style: GoogleFonts.poppins(
-                color: textColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 16),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical:12 ),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: primary, width: 2)),
-            child: Column(
-              children: [
-                Text(
-                  period.course,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      color: primary, fontWeight: FontWeight.bold, fontSize: 32),
-                ),
-                period.teacher.length < 2
-                    ? SizedBox()
-                    : Text(
-                  period.teacher,
-                  style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16),
-                ),
-              ],
+          color: darkBackground,
+          boxShadow: [
+            new BoxShadow(
+              color: Colors.black12,
+              offset: Offset(2.0, 3.0),
+              blurRadius: 3.0,
             ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'From : ',
+          ],
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          status == null
+              ? SizedBox()
+              : Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(2.0, 3.0),
+                          blurRadius: 3.0,
+                        ),
+                      ]),
+                  child: Text(
+                    '$status',
                     style: GoogleFonts.poppins(
-                        color: primary,
-                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
                         fontSize: 14),
                   ),
+                ),
+          SizedBox(
+            height: 6,
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
                   Text(
                     '${formatter.format(period.timeFromHour)}:${formatter.format(period.timeFromMinute)}',
                     style: GoogleFonts.poppins(
                         color: textColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
                   ),
-                ],
-              ),
-              // SizedBox(
-              //   width: 36,
-              // ),
-              Row(
-                children: [
                   Text(
-                    'To : ',
+                    'To',
                     style: GoogleFonts.poppins(
-                        color: primary,
+                        color: lightSlateGrey,
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                   ),
@@ -104,13 +83,38 @@ class PeriodCard extends StatelessWidget {
                     '${formatter.format(period.timeToHour)}:${formatter.format(period.timeToMinute)}',
                     style: GoogleFonts.poppins(
                         color: textColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
                   ),
                 ],
               ),
+              SizedBox(
+                width: 16,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    period.course,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        color: primary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: period.course.length > 12? 20 : 24),
+                  ),
+                  period.teacher.length < 2 || period.teacher.length == null
+                      ? SizedBox()
+                      : Text(
+                          period.teacher,
+                          style: GoogleFonts.poppins(
+                              color: lightSlateGrey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
+                        ),
+                ],
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
