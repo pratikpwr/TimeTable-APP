@@ -52,10 +52,10 @@ class _UploadNoticeState extends State<UploadNotice> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBar(title: 'Upload NOtice', isBackButton: true),
+              CustomAppBar(title: 'Upload Notice', isBackButton: true),
               Text(
                 'Please provide following Info.',
-                style: GoogleFonts.mukta(color: textColor, fontSize: 18),
+                style: GoogleFonts.poppins(color: textColor, fontSize: 18),
               ),
               Padding(
                 padding:
@@ -65,149 +65,146 @@ class _UploadNoticeState extends State<UploadNotice> {
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: primary, width: 2)),
-                          child: DropdownButton(
-                              dropdownColor: darkBackground,
-                              underline: SizedBox(),
-                              elevation: 5,
-                              value: _collegeName,
-                              isExpanded: true,
-                              icon: Icon(
-                                FontAwesome.angle_down,
-                                color: primary,
-                              ),
-                              hint: Text('select college'.toUpperCase(),
-                                  style: GoogleFonts.mukta(color: textColor)),
-                              items: _listOfColleges.map((value) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    value.toString().toUpperCase(),
-                                    style: GoogleFonts.mukta(color: textColor),
-                                  ),
-                                  value: value,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                setState(() {
-                                  _collegeName = value;
-                                });
-                              }),
-                        ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: primary, width: 2)),
+                        child: DropdownButton(
+                            dropdownColor: darkBackground,
+                            underline: SizedBox(),
+                            elevation: 5,
+                            value: _collegeName,
+                            isExpanded: true,
+                            icon: Icon(
+                              FontAwesome.angle_down,
+                              color: primary,
+                            ),
+                            hint: Text('select college'.toUpperCase(),
+                                style: GoogleFonts.poppins(color: textColor)),
+                            items: _listOfColleges.map((value) {
+                              return DropdownMenuItem(
+                                child: Text(
+                                  value.toString().toUpperCase(),
+                                  style: GoogleFonts.mukta(color: textColor),
+                                ),
+                                value: value,
+                              );
+                            }).toList(),
+                            onChanged: (value) async {
+                              setState(() {
+                                _collegeName = value;
+                              });
+                            }),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: primary, width: 2)),
-                          child: DropdownButton(
-                              dropdownColor: darkBackground,
-                              underline: SizedBox(),
-                              elevation: 5,
-                              value: _branchName,
-                              isExpanded: true,
-                              icon: Icon(
-                                FontAwesome.angle_down,
-                                color: primary,
-                              ),
-                              hint: Text('select branch'.toUpperCase(),
-                                  style: GoogleFonts.mukta(color: textColor)),
-                              items: _listOfBranch.map((value) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    value.toString().toUpperCase(),
-                                    style: GoogleFonts.mukta(color: textColor),
-                                  ),
-                                  value: value,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                setState(() {
-                                  _branchName = value;
-                                });
-                              }),
-                        ),
+                      SizedBox(
+                        height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: primary, width: 2)),
-                          child: DropdownButton(
-                              dropdownColor: darkBackground,
-                              underline: SizedBox(),
-                              elevation: 5,
-                              value: _stdName,
-                              isExpanded: true,
-                              icon: Icon(
-                                FontAwesome.angle_down,
-                                color: primary,
-                              ),
-                              hint: Text('select class'.toUpperCase(),
-                                  style: GoogleFonts.mukta(color: textColor)),
-                              items: _listOfStd.map((value) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    value.toString().toUpperCase(),
-                                    style: GoogleFonts.mukta(color: textColor),
-                                  ),
-                                  value: value,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                setState(() {
-                                  _stdName = value;
-                                });
-                              }),
-                        ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: primary, width: 2)),
+                        child: DropdownButton(
+                            dropdownColor: darkBackground,
+                            underline: SizedBox(),
+                            elevation: 5,
+                            value: _branchName,
+                            isExpanded: true,
+                            icon: Icon(
+                              FontAwesome.angle_down,
+                              color: primary,
+                            ),
+                            hint: Text('select branch'.toUpperCase(),
+                                style: GoogleFonts.poppins(color: textColor)),
+                            items: _listOfBranch.map((value) {
+                              return DropdownMenuItem(
+                                child: Text(
+                                  value.toString().toUpperCase(),
+                                  style: GoogleFonts.mukta(color: textColor),
+                                ),
+                                value: value,
+                              );
+                            }).toList(),
+                            onChanged: (value) async {
+                              setState(() {
+                                _branchName = value;
+                              });
+                            }),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: primary, width: 2)),
-                          child: DropdownButton(
-                              dropdownColor: darkBackground,
-                              underline: SizedBox(),
-                              elevation: 5,
-                              value: _divName,
-                              isExpanded: true,
-                              icon: Icon(
-                                FontAwesome.angle_down,
-                                color: primary,
-                              ),
-                              hint: Text('select division'.toUpperCase(),
-                                  style: GoogleFonts.mukta(color: textColor)),
-                              items: _listOfDiv.map((value) {
-                                return DropdownMenuItem(
-                                  child: Text(
-                                    value.toString().toUpperCase(),
-                                    style: GoogleFonts.mukta(color: textColor),
-                                  ),
-                                  value: value,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                setState(() {
-                                  _divName = value;
-                                });
-                              }),
-                        ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: primary, width: 2)),
+                        child: DropdownButton(
+                            dropdownColor: darkBackground,
+                            underline: SizedBox(),
+                            elevation: 5,
+                            value: _stdName,
+                            isExpanded: true,
+                            icon: Icon(
+                              FontAwesome.angle_down,
+                              color: primary,
+                            ),
+                            hint: Text('select class'.toUpperCase(),
+                                style: GoogleFonts.poppins(color: textColor)),
+                            items: _listOfStd.map((value) {
+                              return DropdownMenuItem(
+                                child: Text(
+                                  value.toString().toUpperCase(),
+                                  style: GoogleFonts.mukta(color: textColor),
+                                ),
+                                value: value,
+                              );
+                            }).toList(),
+                            onChanged: (value) async {
+                              setState(() {
+                                _stdName = value;
+                              });
+                            }),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: primary, width: 2)),
+                        child: DropdownButton(
+                            dropdownColor: darkBackground,
+                            underline: SizedBox(),
+                            elevation: 5,
+                            value: _divName,
+                            isExpanded: true,
+                            icon: Icon(
+                              FontAwesome.angle_down,
+                              color: primary,
+                            ),
+                            hint: Text('select division'.toUpperCase(),
+                                style: GoogleFonts.poppins(color: textColor)),
+                            items: _listOfDiv.map((value) {
+                              return DropdownMenuItem(
+                                child: Text(
+                                  value.toString().toUpperCase(),
+                                  style: GoogleFonts.mukta(color: textColor),
+                                ),
+                                value: value,
+                              );
+                            }).toList(),
+                            onChanged: (value) async {
+                              setState(() {
+                                _divName = value;
+                              });
+                            }),
                       ),
                       SizedBox(
                         height: 10,
@@ -221,10 +218,11 @@ class _UploadNoticeState extends State<UploadNotice> {
                             borderSide: BorderSide(),
                           ),
                           labelText: 'Notice Title',
-                          labelStyle: GoogleFonts.poppins(color: Colors.white),
+                          labelStyle: GoogleFonts.poppins(color: textColor),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).accentColor,
+                              width: 2
                             ),
                             borderRadius: BorderRadius.circular(15.0),
                           ),
@@ -256,9 +254,10 @@ class _UploadNoticeState extends State<UploadNotice> {
                             borderSide: BorderSide(),
                           ),
                           labelText: 'Notice Description',
-                          labelStyle: GoogleFonts.poppins(color: Colors.white),
+                          labelStyle: GoogleFonts.poppins(color: textColor),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
+                              width: 2,
                               color: Theme.of(context).accentColor,
                             ),
                             borderRadius: BorderRadius.circular(15.0),
@@ -282,10 +281,11 @@ class _UploadNoticeState extends State<UploadNotice> {
                             borderSide: BorderSide(),
                           ),
                           labelText: 'Notice Date',
-                          labelStyle: GoogleFonts.poppins(color: Colors.white),
+                          labelStyle: GoogleFonts.poppins(color: textColor),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).accentColor,
+                              width: 2
                             ),
                             borderRadius: BorderRadius.circular(15.0),
                           ),

@@ -103,7 +103,8 @@ class _TimeTableTabState extends State<TimeTableTab>
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                    padding: EdgeInsets.only(
+                        left: 16, right: 16, top: 16, bottom: 1),
                     decoration: BoxDecoration(
                         color: background,
                         borderRadius: BorderRadius.circular(28)),

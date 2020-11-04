@@ -29,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15)),
                     child: Icon(
                       Icons.arrow_back_ios_rounded,
-                      color: textColor,
+                      color: Colors.white,
                     ),
                   ),
                 ),
