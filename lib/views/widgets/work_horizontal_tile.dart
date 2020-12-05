@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/work_model.dart';
 
-class WorkHoriTile extends StatelessWidget {
-  const WorkHoriTile(
+class WorkHorizontalTile extends StatelessWidget {
+  const WorkHorizontalTile(
     this.assigns,
     this.index,
   );
@@ -18,7 +18,7 @@ class WorkHoriTile extends StatelessWidget {
       height: double.infinity,
       width: 200,
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
@@ -55,10 +55,12 @@ class WorkHoriTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(fontSize: 14, color: lightSlateGrey),
           ),
-          Text(
-            assigns.assignment[index].subject,
-            style: GoogleFonts.poppins(
-                fontSize: 16, color: textColor, fontWeight: FontWeight.w500),
+          FittedBox(
+            child: Text(
+              assigns.assignment[index].subject,
+              style: GoogleFonts.poppins(
+                  fontSize: 16, color: textColor, fontWeight: FontWeight.w500),
+            ),
           ),
         ],
       ),

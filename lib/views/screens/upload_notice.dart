@@ -210,7 +210,7 @@ class _UploadNoticeState extends State<UploadNotice> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -246,7 +246,7 @@ class _UploadNoticeState extends State<UploadNotice> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -273,7 +273,7 @@ class _UploadNoticeState extends State<UploadNotice> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(

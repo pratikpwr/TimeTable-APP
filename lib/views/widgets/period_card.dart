@@ -19,14 +19,16 @@ class PeriodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final totalSize = MediaQuery.of(context).size;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-      margin: EdgeInsets.symmetric(vertical: 8),
+      width: totalSize.width,
+      padding: EdgeInsets.symmetric(
+          horizontal: 18, vertical: totalSize.height * 0.008),
+      margin: EdgeInsets.symmetric(vertical: totalSize.height * 0.008),
       decoration: BoxDecoration(
           color: darkBackground,
           boxShadow: [
-            new BoxShadow(
+            const BoxShadow(
               color: Colors.black12,
               offset: Offset(2.0, 3.0),
               blurRadius: 3.0,
@@ -100,7 +102,7 @@ class PeriodCard extends StatelessWidget {
                     style: GoogleFonts.poppins(
                         color: primary,
                         fontWeight: FontWeight.w700,
-                        fontSize: period.course.length > 12? 20 : 24),
+                        fontSize: period.course.length > 12 ? 20 : 24),
                   ),
                   period.teacher.length < 2 || period.teacher.length == null
                       ? SizedBox()

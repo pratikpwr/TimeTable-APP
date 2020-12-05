@@ -54,13 +54,12 @@ class _AssignTabState extends State<AssignTab> {
                     ),
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 6),
                       decoration: BoxDecoration(
                           color: background,
                           borderRadius: BorderRadius.circular(28)),
                       child: ListView.builder(
                         shrinkWrap: true,
-                        reverse: true,
                         physics: BouncingScrollPhysics(),
                         itemCount: assignment.length,
                         itemBuilder: (context, index) {
@@ -119,8 +118,7 @@ class _AssignTabState extends State<AssignTab> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Last Date : ' +
-                                          assignment[index].date,
+                                      'Last Date : ' + assignment[index].date,
                                       style: GoogleFonts.mukta(
                                           color: textColor, fontSize: 15),
                                     ),

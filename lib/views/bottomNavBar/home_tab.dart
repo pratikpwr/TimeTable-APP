@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/MyProjects/AndroidStudioProjects/1.MainProjects/timetable/lib/views/widgets/work_hori_tile.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
-import 'package:timetable/models/work_model.dart';
 import 'package:timetable/providers/timetable_provider.dart';
 import 'package:timetable/providers/work_provider.dart';
 import 'package:timetable/views/widgets/period_card.dart';
+import 'package:timetable/views/widgets/work_horizontal_tile.dart';
 
 class HomeTab extends StatelessWidget {
   final NumberFormat formatter = new NumberFormat('00');
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: lavender));
-
     Period curPeriod =
         Provider.of<TimeTableProvider>(context).getCurrentPeriod();
     Period nextPeriod = Provider.of<TimeTableProvider>(context).getNextPeriod();
@@ -27,6 +22,7 @@ class HomeTab extends StatelessWidget {
 
     DateTime date = DateTime.now();
     String day = DateFormat('EE, dd MMM').format(date);
+    final totalSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: darkBackground,
       body: SafeArea(
@@ -45,7 +41,8 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 16, vertical: totalSize.height * 0.01),
               alignment: Alignment.centerLeft,
               color: lavender,
               child: Column(
@@ -81,7 +78,8 @@ class HomeTab extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 16, vertical: totalSize.height * 0.01),
                     decoration: BoxDecoration(
                         color: background,
                         borderRadius: BorderRadius.circular(28)),
@@ -89,11 +87,14 @@ class HomeTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: EdgeInsets.symmetric(
+                              vertical: totalSize.height * 0.004),
                           child: Text(
                             '     TODAY\'S CLASSES',
                             style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                                color: textColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         PeriodCard(
@@ -105,24 +106,24 @@ class HomeTab extends StatelessWidget {
                           status: 'Next',
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: EdgeInsets.symmetric(
+                              vertical: totalSize.height * 0.004),
                           child: Text(
                             '     YOUR ASSIGNMENTS',
                             style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                                color: textColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Expanded(
                           child: ListView.builder(
                             shrinkWrap: true,
-                            reverse: true,
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: assigns.assignment.length,
                             itemBuilder: (context, index) {
-                              return index > 3
-                                  ? null
-                                  : WorkHoriTile(assigns, index);
+                              return WorkHorizontalTile(assigns, index);
                             },
                           ),
                         )

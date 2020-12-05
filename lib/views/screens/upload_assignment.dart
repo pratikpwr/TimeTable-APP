@@ -211,7 +211,7 @@ class _UploadAssignmentState extends State<UploadAssignment> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -247,7 +247,7 @@ class _UploadAssignmentState extends State<UploadAssignment> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -274,7 +274,7 @@ class _UploadAssignmentState extends State<UploadAssignment> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -310,7 +310,7 @@ class _UploadAssignmentState extends State<UploadAssignment> {
                         height: 10,
                       ),
                       TextFormField(
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: textColor),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(

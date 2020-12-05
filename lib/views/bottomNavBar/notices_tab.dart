@@ -54,13 +54,12 @@ class _NoticeTabState extends State<NoticeTab> {
                     ),
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 6),
                       decoration: BoxDecoration(
                           color: background,
                           borderRadius: BorderRadius.circular(28)),
                       child: ListView.builder(
                         shrinkWrap: true,
-                        reverse: true,
                         physics: BouncingScrollPhysics(),
                         itemCount: notices.notices.length,
                         itemBuilder: (context, index) {

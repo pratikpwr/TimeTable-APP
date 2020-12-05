@@ -168,7 +168,7 @@ class TimeTableProvider extends ChangeNotifier {
 
   //
   Period testPeriod = Period(
-      course: 'Currently No Lecture',
+      course: 'No Schedule',
       teacher: '',
       timeFromHour: 0,
       timeFromMinute: 00,

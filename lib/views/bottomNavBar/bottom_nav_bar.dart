@@ -22,11 +22,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   bool _isInit = true;
 
   @override
+  // ignore: must_call_super
   void didChangeDependencies() async {
     if (_isInit) {
-      await Provider.of<TimeTableProvider>(context).getTimeTable();
-      await Provider.of<WorkProvider>(context, listen: false).getWorks();
-      await Provider.of<NoticeProvider>(context, listen: false).getNotices();
+      await Future.wait([
+        Provider.of<TimeTableProvider>(context).getTimeTable(),
+        Provider.of<WorkProvider>(context, listen: false).getWorks(),
+        Provider.of<NoticeProvider>(context, listen: false).getNotices()
+      ]);
     }
     _isInit = false;
   }
@@ -123,8 +126,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
-        return [HomeTab(), TimeTableTab(), AssignTab(), NoticeTab(), ProfileTab()]
-            .elementAt(index);
+        return [
+          HomeTab(),
+          TimeTableTab(),
+          AssignTab(),
+          NoticeTab(),
+          ProfileTab()
+        ].elementAt(index);
       },
     };
   }
