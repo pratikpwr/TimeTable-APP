@@ -30,7 +30,6 @@ class NoticeProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
@@ -53,7 +52,6 @@ class NoticeProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
@@ -71,7 +69,6 @@ class NoticeProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }

@@ -38,7 +38,8 @@ class _UploadAssignmentState extends State<UploadAssignment> {
   String _pdfName = 'Select PDF file';
 
   Future getFile() async {
-    File file = await FilePicker.getFile();
+    FilePickerResult result = await FilePicker.platform.pickFiles();
+    File file = File(result.files.single.path);
     String filename = basename(file.path);
     setState(() {
       _file = file;

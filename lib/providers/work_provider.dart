@@ -30,14 +30,13 @@ class WorkProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
   }
 
-  Future uploadWork(
-      college, branch, std, div, pdfPath, workTitle,subject, workDesc, date) async {
+  Future uploadWork(college, branch, std, div, pdfPath, workTitle, subject,
+      workDesc, date) async {
     String url = '$baseUrl/work/$college/$branch/$std/$div';
     try {
       FormData formData = FormData.fromMap({
@@ -54,7 +53,6 @@ class WorkProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
@@ -67,12 +65,10 @@ class WorkProvider extends ChangeNotifier {
       var response = await Dio().get(url);
       // TODO: implement for PDF file
       var pdfFile = response.data;
-
     } on DioError catch (error) {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }

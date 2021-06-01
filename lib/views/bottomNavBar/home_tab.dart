@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import 'package:timetable/constants.dart';
 import 'package:timetable/models/timetable_model.dart';
 import 'package:timetable/providers/timetable_provider.dart';

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import './providers/notice_provider.dart';
-import './providers/work_provider.dart';
 import './constants.dart';
-import './providers/timetable_provider.dart';
 import './services/local_db.dart';
+import './providers/notice_provider.dart';
+import './providers/timetable_provider.dart';
+import './providers/work_provider.dart';
 import './views/bottomNavBar/bottom_nav_bar.dart';
 import './views/screens/user_data_screen.dart';
 

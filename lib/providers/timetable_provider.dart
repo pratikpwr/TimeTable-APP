@@ -33,7 +33,6 @@ class TimeTableProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
@@ -56,7 +55,6 @@ class TimeTableProvider extends ChangeNotifier {
       if (error.response != null) {
         print(error.response.data.toString());
       } else {
-        print(error.request);
         print(error.message);
       }
     }
